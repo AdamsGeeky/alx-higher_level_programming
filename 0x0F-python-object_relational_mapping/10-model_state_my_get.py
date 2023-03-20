@@ -1,30 +1,21 @@
 #!/usr/bin/python3
-"""
-This script prints the State object id
-with the name passed as argument
-from the database `hbtn_0e_6_usa`.
-"""
-
-from sys import argv
-from model_state import Base, State
-from sqlalchemy import create_engine
+# Print State obj with 'name' passed as arg from db 'hbtn_0e_6_usa'
+# Script should take 4 args: username, pw, db name, and state name
+# Must use SQLAlchemy
+import sys
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy import create_engine
+from model_state import Base, State
 
 if __name__ == "__main__":
-    """
-    Access to the database and get a state
-    from the database.
-    """
-
-    db_uri = 'mysql+mysqldb://{}:{}@localhost:3306/{}'.format(
-        argv[1], argv[2], argv[3])
-    engine = create_engine(db_uri)
+    engine = create_engine("mysql+mysqldb://{}:{}@localhost:3306/{}"
+                           .format(sys.argv[1], sys.argv[2], sys.argv[3]))
     Session = sessionmaker(bind=engine)
-
     session = Session()
-    instance = session.query(State).filter(State.name == argv[4]).first()
 
-    if instance is None:
-        print('Not found')
+    res = session.query(State.id).filter(State.name == sys.argv[4])
+
+    if (res.first() is None):
+        print("Not found")
     else:
-        print('{0}'.format(instance.id))
+        print(res[0][0])
