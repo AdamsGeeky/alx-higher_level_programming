@@ -1,16 +1,18 @@
 #!/usr/bin/python3
-"""
-Use requests package to make a get request to given URL and display
-the body of response, or error code if error.
+"""A script that
+- takes in a URL
+- sends a request to the URL
+- displays the body of the response.
 """
 import sys
 import requests
 
+
 if __name__ == "__main__":
     url = sys.argv[1]
+
     r = requests.get(url)
-    try:
-        r.raise_for_status()
-        print(r.text)
-    except Exception as e:
+    if r.status_code >= 400:
         print("Error code: {}".format(r.status_code))
+    else:
+        print(r.text)

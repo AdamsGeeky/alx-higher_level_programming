@@ -1,10 +1,10 @@
 #!/usr/bin/python3
-# Use requests package to make a get request to given URL
+"""fetches https://intranet.hbtn.io/status."""
 import requests
 
+
 if __name__ == "__main__":
-    url = "https://intranet.hbtn.io/status"
-    r = requests.get(url)
+    r = requests.get("https://intranet.hbtn.io/status")
     print("Body response:")
     print("\t- type: {}".format(type(r.text)))
     print("\t- content: {}".format(r.text))

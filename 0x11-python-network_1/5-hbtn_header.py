@@ -1,12 +1,12 @@
 #!/usr/bin/python3
-"""
-Use requests package to make a get request to given URL and display
-the value of `X-Request-Id` in response header.
+"""Displays the X-Request-Id header variable of a request to a given URL
 """
 import sys
 import requests
 
+
 if __name__ == "__main__":
     url = sys.argv[1]
+
     r = requests.get(url)
-    print(r.headers['x-request-id'])
+    print(r.headers.get("X-Request-Id"))

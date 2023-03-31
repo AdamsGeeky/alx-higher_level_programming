@@ -1,17 +1,20 @@
 #!/usr/bin/python3
+"""lists the 10 most recent commits on a given GitHub repository.
 """
-Please list 10 commits (from the most recent to oldest) of
-the repository “rails” by the user “rails”
-"""
-if __name__ == "__main__":
-    import requests
-    import sys
+import sys
+import requests
 
-    r2 = requests.get(
-        'https://api.github.com/repos/{}/{}/commits?per_page=10'
-        .format(sys.argv[2], sys.argv[1]))
-    data = r2.json()
-    for i in range(len(data)):
-        raw_data = data[i]
-        print(raw_data.get('sha')+':',
-              raw_data.get('commit').get('author').get('name'))
+
+if __name__ == "__main__":
+    url = "https://api.github.com/repos/{}/{}/commits".format(
+        sys.argv[2], sys.argv[1])
+
+    r = requests.get(url)
+    commits = r.json()
+    try:
+        for i in range(10):
+            print("{}: {}".format(
+                commits[i].get("sha"),
+                commits[i].get("commit").get("author").get("name")))
+    except IndexError:
+        pass
