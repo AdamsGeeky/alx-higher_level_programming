@@ -1,4 +1,4 @@
-#!/usr/bin/node
+#!/usr/bin/env node
 /**
  * class Rectangle that defines a rectangle:
  */
